@@ -12,17 +12,18 @@ var userData = map[string]string{
 }
 
 func TestCreateUser(t *testing.T) {
-	user, err := create(userData["name"], userData["email"], userData["password"])
+	user, err := CreateUser(userData["name"], userData["email"], userData["password"])
 
 	assert.Nil(t, err)
 	assert.NotNil(t, user)
 	assert.Equal(t, userData["name"], user.Name)
 	assert.Equal(t, userData["email"], user.Email)
 	assert.NotEqual(t, userData["password"], user.Password)
+	assert.NotEmpty(t, user.CreatedAt)
 }
 
-func TestUser_ValidatePassword(t *testing.T) {
-	user, err := create(userData["name"], userData["email"], userData["password"])
+func TestUserValidatePassword(t *testing.T) {
+	user, err := CreateUser(userData["name"], userData["email"], userData["password"])
 
 	assert.Nil(t, err)
 	assert.True(t, user.ValidatePassword(userData["password"]))
