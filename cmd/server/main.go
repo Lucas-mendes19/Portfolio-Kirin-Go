@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	_, err := configs.Load(".")
+	env, err := configs.Load(".")
 	if err != nil {
 		panic(err)
 	}
@@ -30,7 +30,8 @@ func main() {
 	playlistHandler := NewPlaylistHandler(playlistRepo)
 
 	http.HandleFunc("/playlists", playlistHandler.CreatePlaylist)
-	err = http.ListenAndServe(":8081", nil)
+
+	err = http.ListenAndServe(":"+env.ServerPort, nil)
 	if err != nil {
 		panic(err)
 	}
