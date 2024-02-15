@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/Lucas-mendes19/Portfolio-Kirin-Go/configs"
 	"github.com/Lucas-mendes19/Portfolio-Kirin-Go/internal/domain/entity"
 	"github.com/Lucas-mendes19/Portfolio-Kirin-Go/internal/domain/repository"
 	"gorm.io/driver/sqlite"
@@ -11,11 +10,6 @@ import (
 )
 
 func main() {
-	env, err := configs.Load(".")
-	if err != nil {
-		panic(err)
-	}
-
 	db, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
@@ -30,8 +24,7 @@ func main() {
 	playlistHandler := NewPlaylistHandler(playlistRepo)
 
 	http.HandleFunc("/playlists", playlistHandler.CreatePlaylist)
-
-	err = http.ListenAndServe(":"+env.ServerPort, nil)
+	err = http.ListenAndServe(":80", nil)
 	if err != nil {
 		panic(err)
 	}
