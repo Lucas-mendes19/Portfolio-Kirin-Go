@@ -3,12 +3,8 @@ package repository
 import (
 	"github.com/Lucas-mendes19/Portfolio-Kirin-Go/internal/domain/entity"
 	"github.com/stretchr/testify/assert"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 	"testing"
 )
-
-var db, err = gorm.Open(sqlite.Open("file::memory:"), &gorm.Config{})
 
 var userData = map[string]string{
 	"name":     "Lucas",
@@ -17,10 +13,6 @@ var userData = map[string]string{
 }
 
 func init() {
-	if err != nil {
-		panic("failed to connect database")
-	}
-
 	err = db.AutoMigrate(&entity.User{})
 	if err != nil {
 		panic("failed to migrate database")
