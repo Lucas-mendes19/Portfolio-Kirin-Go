@@ -3,7 +3,7 @@ package entity
 import (
 	"errors"
 	"github.com/Lucas-mendes19/Portfolio-Kirin-Go/pkg/entity"
-	"time"
+	"gorm.io/gorm"
 )
 
 var (
@@ -11,16 +11,16 @@ var (
 )
 
 type Playlist struct {
-	ID        entity.Id `json:"id"`
-	Title     string    `json:"title"`
-	CreatedAt time.Time `json:"created_at"`
+	ID     entity.Id `json:"id"`
+	Title  string    `json:"title"`
+	Videos []Video   `json:"videos"`
+	gorm.Model
 }
 
 func CreatePlaylist(title string) (*Playlist, error) {
 	playlist := &Playlist{
-		ID:        entity.NewId(),
-		Title:     title,
-		CreatedAt: time.Now(),
+		ID:    entity.NewId(),
+		Title: title,
 	}
 
 	err := playlist.Validate()
