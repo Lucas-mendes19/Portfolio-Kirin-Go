@@ -14,3 +14,8 @@ type PlaylistInterface interface {
 	Update(playlist *entity.Playlist) error
 	Delete(id string) error
 }
+
+type VideoInterface interface {
+	Find(id string) (*entity.Video, error)
+	Create(video *entity.Video) error
+}
