@@ -2,15 +2,15 @@ package entity
 
 import (
 	"github.com/Lucas-mendes19/Portfolio-Kirin-Go/pkg/entity"
-	"time"
+	"gorm.io/gorm"
 )
 
 type User struct {
-	ID        entity.Id       `json:"id"`
-	Name      string          `json:"name"`
-	Email     string          `json:"email"`
-	Password  entity.Password `json:"-"`
-	CreatedAt time.Time       `json:"created_at"`
+	ID       entity.Id       `json:"id"`
+	Name     string          `json:"name"`
+	Email    string          `json:"email"`
+	Password entity.Password `json:"-"`
+	gorm.Model
 }
 
 func CreateUser(name string, email string, password string) (*User, error) {
@@ -21,11 +21,10 @@ func CreateUser(name string, email string, password string) (*User, error) {
 	}
 
 	return &User{
-		ID:        entity.NewId(),
-		Name:      name,
-		Email:     email,
-		Password:  hash,
-		CreatedAt: time.Now(),
+		ID:       entity.NewId(),
+		Name:     name,
+		Email:    email,
+		Password: hash,
 	}, nil
 }
 
