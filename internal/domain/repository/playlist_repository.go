@@ -34,7 +34,7 @@ func (p *Playlist) FindAll(page int, limit int, sort string) ([]entity.Playlist,
 		return playlists, err
 	}
 
-	err = p.DB.Find(&playlists).Error
+	err = p.DB.Preload("Videos").Find(&playlists).Error
 	return playlists, err
 }
 
